@@ -23,3 +23,11 @@ func scenario(historicalData []int, target int) (iterations int) {
 	}
 	return
 }
+
+// formats the results for output. Changes to the appearance are made here.
+func formatHistogram(occurrences map[int]int, scenarios int) string {
+	const (
+		header = "#iterations probably cumulative occurrence"
+	)
+	return header
+}

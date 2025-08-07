@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func Test_scenario(t *testing.T) {
 	type args struct {
@@ -34,4 +37,31 @@ func Test_scenario_should_panic_on_empty_historicData(t *testing.T) {
 	_ = scenario([]int{}, 4) //this should panic
 	// If there was no panic the test will fail
 	t.Errorf("scenario() with empty historic data should have paniced but didn't")
+}
+
+// strategy is to look if specific strings appear in the output rather than matching the complete output
+func Test_formatHistogram(t *testing.T) {
+	tests := []struct {
+		name      string
+		counts    map[int]int
+		scenarios int
+		want      string
+	}{
+		{"should contain a header",
+			map[int]int{1: 10, 2: 30}, 40,
+			"#iterations probably cumulative occurrence"},
+		{"should contain one row",
+			map[int]int{1: 42}, 42,
+			"          1   100.00     100.00         42"},
+		// Add more test cases.
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := formatHistogram(tt.counts, tt.scenarios)
+			if !strings.Contains(got, tt.want) {
+				t.Errorf("formatHistogram() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
