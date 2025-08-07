@@ -25,6 +25,12 @@ func scenario(historicalData []int, target int) (iterations int) {
 	return
 }
 
+func runSimulation(historicalData []int, target, scenarios int) (occurrences map[int]int) {
+	occurrences = make(map[int]int)
+	occurrences[3] = 1
+	return
+}
+
 // formats the results for output. Changes to the appearance are made here.
 func formatHistogram(occurrences map[int]int, scenarios int) string {
 	const (

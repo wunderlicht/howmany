@@ -1,6 +1,7 @@
 package main
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -115,6 +116,36 @@ func Test_percent(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := percent(tt.value, tt.total); got != tt.want {
 				t.Errorf("percent() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_runSimulation(t *testing.T) {
+	type args struct {
+		historicalData []int
+		target         int
+		scenarios      int
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantOccurences map[int]int
+	}{
+		{"one scenario one datapoint",
+			args{[]int{2}, 6, 1},
+			map[int]int{3: 1},
+		},
+		{"50 scenarios one datapoint",
+			args{[]int{2}, 6, 1},
+			map[int]int{3: 50},
+		},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotOccurences := runSimulation(tt.args.historicalData, tt.args.target, tt.args.scenarios); !reflect.DeepEqual(gotOccurences, tt.wantOccurences) {
+				t.Errorf("runSimulation() = %v, want %v", gotOccurences, tt.wantOccurences)
 			}
 		})
 	}
