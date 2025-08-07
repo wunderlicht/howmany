@@ -17,7 +17,7 @@ func Test_scenario(t *testing.T) {
 	}{
 		{"should be done in one iteration", args{[]int{2, 2, 2}, 2}, 1},
 		{"should be done in two iteration", args{[]int{2, 2, 2}, 4}, 2},
-		{"should be done in three iteration", args{[]int{3, 2, 2}, 6}, 3},
+		{"should be done in three iteration", args{[]int{4, 3, 3}, 9}, 3},
 		{"one element", args{[]int{3}, 12}, 4},
 		// Add more test cases.
 	}
@@ -49,10 +49,13 @@ func Test_formatHistogram(t *testing.T) {
 	}{
 		{"should contain a header",
 			map[int]int{1: 10, 2: 30}, 40,
-			"#iterations probably cumulative occurrence"},
+			"#iterations probably cumulative occurrence\n"},
 		{"should contain one row",
 			map[int]int{1: 42}, 42,
 			"          1   100.00     100.00         42"},
+		{"should contain confidence marker",
+			map[int]int{1: 42}, 42,
+			" <-- 85% confidence\n"},
 		// Add more test cases.
 	}
 
@@ -61,6 +64,57 @@ func Test_formatHistogram(t *testing.T) {
 			got := formatHistogram(tt.counts, tt.scenarios)
 			if !strings.Contains(got, tt.want) {
 				t.Errorf("formatHistogram() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_formatHistogram_should_have_marker(t *testing.T) {
+	const (
+		want   = 1 //there can only be one marker
+		marker = " <-- "
+	)
+
+	tests := []struct {
+		name      string
+		counts    map[int]int
+		scenarios int
+	}{
+		{"one line one marker",
+			map[int]int{1: 42}, 42,
+		},
+		{"two line one marker",
+			map[int]int{1: 10, 2: 30}, 40,
+		},
+		// Add more test cases.
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := formatHistogram(tt.counts, tt.scenarios)
+			if strings.Count(got, marker) != want {
+				t.Errorf("formatHistogram() = %v, has not exactly %d marker", got, want)
+			}
+		})
+	}
+}
+
+func Test_percent(t *testing.T) {
+	tests := []struct {
+		name  string
+		value int
+		total int
+		want  float64
+	}{
+		{"all is 100%", 42, 42, 100.00},
+		{"half is 50%", 21, 42, 50.00},
+
+		//Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := percent(tt.value, tt.total); got != tt.want {
+				t.Errorf("percent() = %v, want %v", got, tt.want)
 			}
 		})
 	}
