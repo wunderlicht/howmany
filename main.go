@@ -25,6 +25,12 @@ func scenario(historicalData []int, target int) (iterations int) {
 	return
 }
 
+// run # of scenarios and put the results in the respective bucket
+// Example
+// historical = [2, 4, 3, 2], target = 10, scenarios 2
+// possible picks: 4, 3, 2, 3	summed up: 12, needed iterations: 4
+// possible picks: 4, 3, 3		summed up: 10, needed iterations: 3
+// would result in occurrences = map[int]int{3:1, 4:1}
 func runSimulation(historicalData []int, target, scenarios int) (occurrences map[int]int) {
 	occurrences = make(map[int]int)
 	for i := 0; i < scenarios; i++ {

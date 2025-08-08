@@ -140,7 +140,7 @@ func Test_runSimulation(t *testing.T) {
 			args{[]int{2}, 6, 50},
 			map[int]int{3: 50},
 		},
-		// TODO: Add test cases.
+		// Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
