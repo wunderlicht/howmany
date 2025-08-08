@@ -137,7 +137,7 @@ func Test_runSimulation(t *testing.T) {
 			map[int]int{3: 1},
 		},
 		{"50 scenarios one datapoint",
-			args{[]int{2}, 6, 1},
+			args{[]int{2}, 6, 50},
 			map[int]int{3: 50},
 		},
 		// TODO: Add test cases.

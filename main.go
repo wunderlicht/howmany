@@ -27,7 +27,9 @@ func scenario(historicalData []int, target int) (iterations int) {
 
 func runSimulation(historicalData []int, target, scenarios int) (occurrences map[int]int) {
 	occurrences = make(map[int]int)
-	occurrences[3] = 1
+	for i := 0; i < scenarios; i++ {
+		occurrences[scenario(historicalData, target)]++
+	}
 	return
 }
 
