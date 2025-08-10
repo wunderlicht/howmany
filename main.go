@@ -49,11 +49,11 @@ func formatHistogram(occurrences map[int]int, scenarios int) string {
 	var b strings.Builder
 	b.WriteString(header)
 
-	scensum := 0
+	scenarioCounted := 0
 	cumulative := 0.0
 	belowThreshold := true
-	for iter := 1; scensum < scenarios; iter++ {
-		scensum += occurrences[iter]
+	for iter := 1; scenarioCounted < scenarios; iter++ {
+		scenarioCounted += occurrences[iter]
 		prob := percent(occurrences[iter], scenarios)
 		cumulative += prob
 
