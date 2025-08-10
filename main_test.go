@@ -109,7 +109,7 @@ func Test_percent(t *testing.T) {
 	}{
 		{"all is 100%", 42, 42, 100.00},
 		{"half is 50%", 21, 42, 50.00},
-
+		{"nothing is 0%", 0, 42, 0.00},
 		//Add test cases.
 	}
 	for _, tt := range tests {
