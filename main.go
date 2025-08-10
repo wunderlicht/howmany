@@ -4,19 +4,27 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
+	"log"
 	"math/rand/v2"
+	"os"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	hd := []int{12, 26, 13, 7, 13, 21, 17, 5, 0, 21, 3, 15}
-
 	const (
+		filename  = "exampleHistory.csv"
 		scenarios = 100_000
 		target    = 56
 	)
-
+	f, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	hd, err := readHistoryCSV(f)
+	if err != nil {
+		log.Fatal(err)
+	}
 	occ := runSimulation(hd, target, scenarios)
 	fmt.Print(formatHistogram(occ, scenarios))
 }
