@@ -7,8 +7,15 @@ import (
 )
 
 func main() {
-	hd := []int{2, 6, 1, 3, 4, 8}
-	fmt.Println(scenario(hd, 6))
+	hd := []int{12, 26, 13, 7, 13, 21, 17, 5, 0, 21, 3, 15}
+
+	const (
+		scenarios = 100_000
+		target    = 56
+	)
+
+	occ := runSimulation(hd, target, scenarios)
+	fmt.Print(formatHistogram(occ, scenarios))
 }
 
 // scenario picks randomly from the historical data. How many picks are necessary to match the target?
