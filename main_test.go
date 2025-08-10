@@ -128,9 +128,9 @@ func Test_runSimulation(t *testing.T) {
 		scenarios      int
 	}
 	tests := []struct {
-		name           string
-		args           args
-		wantOccurences map[int]int
+		name        string
+		args        args
+		occurrences map[int]int
 	}{
 		{"one scenario one datapoint",
 			args{[]int{2}, 6, 1},
@@ -144,8 +144,8 @@ func Test_runSimulation(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotOccurences := runSimulation(tt.args.historicalData, tt.args.target, tt.args.scenarios); !reflect.DeepEqual(gotOccurences, tt.wantOccurences) {
-				t.Errorf("runSimulation() = %v, want %v", gotOccurences, tt.wantOccurences)
+			if gotOccurrences := runSimulation(tt.args.historicalData, tt.args.target, tt.args.scenarios); !reflect.DeepEqual(gotOccurrences, tt.occurrences) {
+				t.Errorf("runSimulation() = %v, want %v", gotOccurrences, tt.occurrences)
 			}
 		})
 	}
