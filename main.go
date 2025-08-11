@@ -21,6 +21,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer f.Close()
+
 	hd, err := readHistoryCSV(f)
 	if err != nil {
 		log.Fatal(err)
