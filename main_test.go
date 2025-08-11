@@ -224,3 +224,36 @@ func Test_average(t *testing.T) {
 		})
 	}
 }
+
+func Test_formatAverage(t *testing.T) {
+	type args struct {
+		history []int
+		target  int
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"empty array should return empty string",
+			args{[]int{}, 50},
+			""},
+		{"nil array should return empty string",
+			args{nil, 50},
+			""},
+		{"zero target should return empty string",
+			args{[]int{1, 2, 3}, 0},
+			""},
+		{"target 10 should return 2",
+			args{[]int{5, 5, 5}, 10},
+			"Average: 5.00\nIterations based on average: 2.0\n"},
+		//Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := formatPredictionOnAverage(tt.args.history, tt.args.target); got != tt.want {
+				t.Errorf("formatPredictionOnAverage() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

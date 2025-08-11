@@ -29,6 +29,7 @@ func main() {
 	}
 	occ := runSimulation(hd, target, scenarios)
 	fmt.Print(formatHistogram(occ, scenarios))
+	fmt.Print(formatPredictionOnAverage(hd, target))
 }
 
 // scenario picks randomly from the historical data. How many picks are necessary to match the target?
@@ -106,6 +107,19 @@ func formatHistogram(occurrences map[int]int, scenarios int) string {
 		b.WriteString("\n")
 	}
 	return b.String()
+}
+
+// gives a hint on the
+func formatPredictionOnAverage(history []int, target int) string {
+	//guard
+	if target == 0 || len(history) == 0 || history == nil {
+		return ""
+	}
+	const format = "Average: %.2f\nIterations based on average: %.1f\n"
+
+	avg := average(history)
+	iters := float64(target) / avg
+	return fmt.Sprintf(format, avg, iters)
 }
 
 // could have been a generic but clear is better than clever.
