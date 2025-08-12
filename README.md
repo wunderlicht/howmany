@@ -48,11 +48,23 @@ table. 😉
           9          1     0.00     100.00
 ```
 
-Of course `howmany` did the work for me. Were you aware that in no scenario
-whatsoever it is probable to finish the job in 1 iteration before looking at
-the table? Do you see that commiting to do the job in 2 iterations is futile as
-it only has a less than 30% chance? Do you see that committing to 3 iterations
-for the job is still likely to fail in 1 out of 4 cases?
+Of course `howmany` did the work for me.
+
+Before looking at the table
+* Were you aware that in no scenario it is possible to finish the job in 1
+iteration?
+* Did you see that commiting to do the job in 2 iterations is futile as
+it only has a less than 30% chance?
+* Did you see that committing to 3 iterations for the job is still likely to fail
+in 1 out of 4 cases?
+
+All of a sudden we can argue with probabilities on how many iterations we
+should assume for a bunch of tasks at hand. We can adjust the planned iterations
+based on the risk we are comfortable to take. When we need to hit a legal
+deadline we should start at least 7 iterations in advance to be pretty sure
+we will make it. If you ask me to finish some work for a fair that is after 2
+iterations, I would politely decline because of the high risk NOT to finish on
+time.
 
 ## How does it work?
 `howmany` runs a lot of single scenarios based on historic data to answer one
