@@ -31,8 +31,28 @@ Let's roll the dice!
 We got 3, 4, 2, 5 iterations as results. Obviously 2.6 is really just an
 estimate and the truth varies. This bears one question.
 What is the probability of the amount of work done in 1, 2, 3, 4, 5,...
-iterations? Run a lot of above scenarios and make a statistic! This is exactly
-what `howmany` does.
+iterations? Run a lot of above scenarios and make a statistic!
+I rolled the dice for 100,000 scenarios and put the results in the following
+table. 😉
+
+```
+#iterations occurrence probably cumulative
+          1          0     0.00       0.00
+          2      28047    28.05      28.05
+          3      46098    46.10      74.14
+          4      20446    20.45      94.59
+          5       4681     4.68      99.27
+          6        672     0.67      99.94
+          7         51     0.05      99.99
+          8          4     0.00     100.00
+          9          1     0.00     100.00
+```
+
+Of course `howmany` did the work for me. Were you aware that in no scenario
+whatsoever it is probable to finish the job in 1 iteration before looking at
+the table? Do you see that commiting to do the job in 2 iterations is futile as
+it only has a less than 30% chance? Do you see that committing to 3 iterations
+for the job is still likely to fail in 1 out of 4 cases?
 
 ## How does it work?
 `howmany` runs a lot of single scenarios based on historic data to answer one
