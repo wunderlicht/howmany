@@ -42,7 +42,8 @@ func Test_scenario_should_panic_on_empty_historicData(t *testing.T) {
 	t.Errorf("scenario() with empty historic data should have paniced but didn't")
 }
 
-// strategy is to look if specific strings appear in the output rather than matching the complete output
+// strategy is to look if specific strings appear in the output
+// rather than matching the complete output
 func Test_formatHistogram(t *testing.T) {
 	tests := []struct {
 		name      string
