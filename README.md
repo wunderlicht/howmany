@@ -69,3 +69,9 @@ time.
 ## How does it work?
 `howmany` runs a lot of single scenarios based on historic data to answer one
 simple question. How many iterations will it likely take?
+
+A single scenario randomly picks historic data points and counts how many are
+needed to hit (or overshoot) the given target (9 in the above example). The
+results of the scenarios are counted. Based on the simulation dataset
+probabilities are calculated and cummulated.
+
