@@ -75,3 +75,10 @@ needed to hit (or overshoot) the given target (9 in the above example). The
 results of the scenarios are counted. Based on the simulation dataset
 probabilities are calculated and cummulated.
 
+## Usage
+
+## Limitations
+When you have historic data with a lot of zeros, a.k.a. nothing was delivered
+during iterations, the single scenario might not terminate (the case is very
+unlikely, still not impossible, so be aware). No measures were taken to catch
+this highly unlikely case.
