@@ -84,8 +84,8 @@ func readHistoryCSV(r io.Reader) (history []int, err error) {
 // formats the results for output. Changes to the appearance are made here.
 func formatHistogram(occurrences map[int]int, scenarios int) string {
 	const (
-		header = "#iterations probably cumulative occurrence\n"
-		row    = "%11d%9.2f%11.2f%11d" //row format
+		header = "#iterations occurrence probably cumulative\n"
+		row    = "%11d%11d%9.2f%11.2f" //row format
 		marker = " <-- 85% confidence"
 	)
 	var b strings.Builder
@@ -99,7 +99,7 @@ func formatHistogram(occurrences map[int]int, scenarios int) string {
 		prob := percent(occurrences[iter], scenarios)
 		cumulative += prob
 
-		b.WriteString(fmt.Sprintf(row, iter, prob, cumulative, occurrences[iter]))
+		b.WriteString(fmt.Sprintf(row, iter, occurrences[iter], prob, cumulative))
 		if cumulative >= 85.0 && belowThreshold {
 			belowThreshold = false //we reached the threshold
 			b.WriteString(marker)
