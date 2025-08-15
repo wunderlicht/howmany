@@ -53,7 +53,7 @@ func Test_formatHistogram(t *testing.T) {
 	}{
 		{"should contain a header",
 			map[int]int{1: 10, 2: 30}, 40,
-			"#iterations occurrence probably cumulative\n"},
+			"#iterations occurrence probability cumulative\n"},
 		{"should contain one row",
 			map[int]int{1: 42}, 42,
 			"          1         42   100.00     100.00"},
