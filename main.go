@@ -21,7 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer f.Close()
+	defer CloseIgnoreError(f)
 
 	hd, err := readHistoryCSV(f)
 	if err != nil {
@@ -138,4 +138,8 @@ func average(d []int) float64 {
 		sum += float64(d[i])
 	}
 	return sum / float64(len(d))
+}
+
+func CloseIgnoreError(f *os.File) {
+	_ = f.Close()
 }
