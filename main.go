@@ -15,7 +15,7 @@ func main() {
 	const (
 		filename  = "exampleHistory.csv"
 		scenarios = 100_000
-		target    = 56
+		goal      = 56
 	)
 	f, err := os.Open(filename)
 	if err != nil {
@@ -27,19 +27,19 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	occ := runSimulation(hd, target, scenarios)
+	occ := runSimulation(hd, goal, scenarios)
 	fmt.Print(formatHistogram(occ, scenarios))
-	fmt.Print(formatPredictionOnAverage(hd, target))
+	fmt.Print(formatPredictionOnAverage(hd, goal))
 }
 
-// scenario picks randomly from the historical data. How many picks are necessary to match the target?
+// scenario picks randomly from the historical data. How many picks are necessary to match the goal?
 // Example
-// historical = [2, 4, 3, 2], target = 10
+// historical = [2, 4, 3, 2], goal = 10
 // possible picks: 4, 3, 2, 3	summed up: 12, needed iterations: 4
 // possible picks: 4, 3, 3		summed up: 10, needed iterations: 3
-func scenario(historicalData []int, target int) (iterations int) {
+func scenario(historicalData []int, goal int) (iterations int) {
 	sum := 0
-	for iterations = 0; sum < target; iterations++ {
+	for iterations = 0; sum < goal; iterations++ {
 		pick := rand.IntN(len(historicalData))
 		sum += historicalData[pick]
 	}
@@ -48,14 +48,14 @@ func scenario(historicalData []int, target int) (iterations int) {
 
 // run # of scenarios and put the results in the respective bucket
 // Example
-// historical = [2, 4, 3, 2], target = 10, scenarios 2
+// historical = [2, 4, 3, 2], goal = 10, scenarios 2
 // possible picks: 4, 3, 2, 3	summed up: 12, needed iterations: 4
 // possible picks: 4, 3, 3		summed up: 10, needed iterations: 3
 // would result in occurrences = map[int]int{3:1, 4:1}
-func runSimulation(historicalData []int, target, scenarios int) (occurrences map[int]int) {
+func runSimulation(historicalData []int, goal, scenarios int) (occurrences map[int]int) {
 	occurrences = make(map[int]int)
 	for i := 0; i < scenarios; i++ {
-		occurrences[scenario(historicalData, target)]++
+		occurrences[scenario(historicalData, goal)]++
 	}
 	return
 }
@@ -110,15 +110,15 @@ func formatHistogram(occurrences map[int]int, scenarios int) string {
 }
 
 // gives a hint on the
-func formatPredictionOnAverage(history []int, target int) string {
+func formatPredictionOnAverage(history []int, goal int) string {
 	//guard
-	if target == 0 || len(history) == 0 || history == nil {
+	if goal == 0 || len(history) == 0 || history == nil {
 		return ""
 	}
 	const format = "Average: %.2f\nIterations based on average: %.1f\n"
 
 	avg := average(history)
-	iters := float64(target) / avg
+	iters := float64(goal) / avg
 	return fmt.Sprintf(format, avg, iters)
 }
 

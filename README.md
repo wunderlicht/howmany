@@ -51,7 +51,7 @@ table. 😉
 Of course `howmany` did the work for me.
 
 Before looking at the table
-* Were you aware that in no scenario it is possible to finish the job in 1
+* Were you aware that in no scenario it was possible to finish the job in 1
 iteration?
 * Did you see that commiting to do the job in 2 iterations is futile as
 it only has a less than 30% chance?
@@ -71,9 +71,9 @@ time.
 simple question. How many iterations will it likely take?
 
 A single scenario randomly picks historic data points and counts how many are
-needed to hit (or overshoot) the given target (9 in the above example). The
-results of the scenarios are counted. Based on the simulation dataset
-probabilities are calculated and cumulated.
+needed to hit (or overshoot) the given goal (9 in the above example). The
+results of the scenarios are counted. Probabilities and cumulated probabilities
+are calculated based on the resulting dataset of those simulations.
 
 ## Usage
 

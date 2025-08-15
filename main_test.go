@@ -11,7 +11,7 @@ import (
 func Test_scenario(t *testing.T) {
 	type args struct {
 		historicalData []int
-		target         int
+		goal           int
 	}
 	tests := []struct {
 		name           string
@@ -26,7 +26,7 @@ func Test_scenario(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotIterations := scenario(tt.args.historicalData, tt.args.target); gotIterations != tt.wantIterations {
+			if gotIterations := scenario(tt.args.historicalData, tt.args.goal); gotIterations != tt.wantIterations {
 				t.Errorf("scenario() = %v, want %v", gotIterations, tt.wantIterations)
 			}
 		})
@@ -127,7 +127,7 @@ func Test_percent(t *testing.T) {
 func Test_runSimulation(t *testing.T) {
 	type args struct {
 		historicalData []int
-		target         int
+		goal           int
 		scenarios      int
 	}
 	tests := []struct {
@@ -147,7 +147,7 @@ func Test_runSimulation(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotOccurrences := runSimulation(tt.args.historicalData, tt.args.target, tt.args.scenarios); !reflect.DeepEqual(gotOccurrences, tt.occurrences) {
+			if gotOccurrences := runSimulation(tt.args.historicalData, tt.args.goal, tt.args.scenarios); !reflect.DeepEqual(gotOccurrences, tt.occurrences) {
 				t.Errorf("runSimulation() = %v, want %v", gotOccurrences, tt.occurrences)
 			}
 		})
@@ -229,7 +229,7 @@ func Test_average(t *testing.T) {
 func Test_formatAverage(t *testing.T) {
 	type args struct {
 		history []int
-		target  int
+		goal    int
 	}
 	tests := []struct {
 		name string
@@ -242,17 +242,17 @@ func Test_formatAverage(t *testing.T) {
 		{"nil array should return empty string",
 			args{nil, 50},
 			""},
-		{"zero target should return empty string",
+		{"zero goal should return empty string",
 			args{[]int{1, 2, 3}, 0},
 			""},
-		{"target 10 should return 2",
+		{"goal 10 should return 2",
 			args{[]int{5, 5, 5}, 10},
 			"Average: 5.00\nIterations based on average: 2.0\n"},
 		//Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := formatPredictionOnAverage(tt.args.history, tt.args.target); got != tt.want {
+			if got := formatPredictionOnAverage(tt.args.history, tt.args.goal); got != tt.want {
 				t.Errorf("formatPredictionOnAverage() = %v, want %v", got, tt.want)
 			}
 		})
