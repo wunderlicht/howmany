@@ -84,7 +84,7 @@ func readHistoryCSV(r io.Reader) (history []int, err error) {
 // formats the results for output. Changes to the appearance are made here.
 func formatHistogram(occurrences map[int]int, scenarios int) string {
 	const (
-		header = "#iterations occurrence probably cumulative\n"
+		header = "#iterations occurrence probability cumulative\n"
 		row    = "%11d%11d%9.2f%11.2f" //row format
 		marker = " <-- 85% confidence"
 	)

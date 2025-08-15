@@ -87,7 +87,7 @@ func Test_formatHistogram_should_have_marker(t *testing.T) {
 		{"one line one marker",
 			map[int]int{1: 42}, 42,
 		},
-		{"two line one marker",
+		{"two lines one marker",
 			map[int]int{1: 10, 2: 30}, 40,
 		},
 		// Add more test cases.
