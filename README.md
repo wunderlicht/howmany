@@ -76,6 +76,9 @@ results of the scenarios are counted. Probabilities and cumulated probabilities
 are calculated based on the resulting dataset of those simulations.
 
 ## Usage
+`howmany -goal 55 -file history.csv -scenarios 300000 -confidence 90`  
+same as  
+`howmany -g 55 -f history.csv -s 300000 -c 90`
 
 ## Limitations
 When you have historic data with a lot of zeros, a.k.a. nothing was delivered
