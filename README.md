@@ -80,6 +80,12 @@ are calculated based on the resulting dataset of those simulations.
 same as  
 `howmany -g 55 -f history.csv -s 300000 -c 90`
 
+`-goal` and `-file` are mandatory parameters.
+
+When `-scenarios` is omitted a default of 100,000 is assumed.  
+When `-confidence` is omitted the respective marker is not printed.
+
+
 ## Limitations
 When you have historic data with a lot of zeros, a.k.a. nothing was delivered
 during iterations, the single scenario might not terminate (the case is very

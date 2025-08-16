@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -11,13 +12,23 @@ import (
 	"strings"
 )
 
+const (
+	defaultScenarios  = 100_000
+	defaultConfidence = 85.0
+)
+
+type parameter struct {
+	filename   string
+	scenarios  int
+	goal       int
+	confidence float64
+}
+
 func main() {
-	const (
-		filename  = "exampleHistory.csv"
-		scenarios = 100_000
-		goal      = 56
-	)
-	f, err := os.Open(filename)
+	var param parameter
+	populateParameter(&param)
+
+	f, err := os.Open(param.filename)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,12 +38,34 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	occ := runSimulation(hd, goal, scenarios)
-	fmt.Print(formatHistogram(occ, scenarios))
-	fmt.Print(formatPredictionOnAverage(hd, goal))
+	occ := runSimulation(hd, param.goal, param.scenarios)
+	fmt.Print(formatHistogram(occ, param.scenarios))
+	fmt.Print(formatPredictionOnAverage(hd, param.goal))
 }
 
-// scenario picks randomly from the historical data. How many picks are necessary to match the goal?
+func populateParameter(p *parameter) {
+	flag.StringVar(&p.filename, "file", "",
+		"filename of CSV with historic data (mandatory)")
+	flag.StringVar(&p.filename, "f", "",
+		"short for -file")
+	flag.IntVar(&p.scenarios, "scenarios", defaultScenarios,
+		"number of scenarios")
+	flag.IntVar(&p.scenarios, "s", defaultScenarios,
+		"short for -scenarios")
+	flag.IntVar(&p.goal, "goal", 0,
+		"goal to meet for a scenario (mandatory)")
+	flag.IntVar(&p.goal, "g", 0,
+		"short for -goal")
+	flag.Float64Var(&p.confidence, "confidence", defaultConfidence,
+		"set marker to # of iterations that meets confidence level")
+	flag.Float64Var(&p.confidence, "c", defaultConfidence,
+		"short for -confidence")
+
+	flag.Parse()
+}
+
+// scenario picks randomly from the historical data. How many picks are
+// necessary to match the goal? A goal of 0 returns 1 iteration
 // Example
 // historical = [2, 4, 3, 2], goal = 10
 // possible picks: 4, 3, 2, 3	summed up: 12, needed iterations: 4
