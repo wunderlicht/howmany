@@ -324,3 +324,36 @@ func Test_getEnvOrDefaultInt(t *testing.T) {
 		})
 	}
 }
+
+func Test_getEnvOrDefaultFloat(t *testing.T) {
+	const (
+		setEnvFloat = 99.9
+		setEnvStr   = "99.9"
+	)
+	type args struct {
+		key      string
+		fallback float64
+	}
+	tests := []struct {
+		name   string
+		setEnv bool
+		args   args
+		want   float64
+	}{
+		{"no env should return falback", false,
+			args{"SOMEKEY", 42.0}, 42.0},
+		{"env set should return setEnvFloat", true,
+			args{"SOMEKEY", 42.0}, setEnvFloat},
+		//Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.setEnv {
+				_ = os.Setenv(tt.args.key, setEnvStr) //maybe I should hard fail?
+			}
+			if got := getEnvOrDefaultFloat(tt.args.key, tt.args.fallback); got != tt.want {
+				t.Errorf("getEnvOrDefaultFloat() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

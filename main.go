@@ -17,6 +17,7 @@ const (
 	defaultConfidence = 85.0
 	envFile           = "HMFILE"
 	envScenarios      = "HMSCENARIOS"
+	envConfidence     = "HMCONFIDENCE"
 )
 
 type parameter struct {
@@ -66,9 +67,11 @@ func populateParameter(p *parameter) {
 		getEnvOrDefaultInt(envScenarios, defaultScenarios),
 		"short for -scenarios")
 
-	flag.Float64Var(&p.confidence, "confidence", defaultConfidence,
+	flag.Float64Var(&p.confidence, "confidence",
+		getEnvOrDefaultFloat(envConfidence, defaultConfidence),
 		"set marker to # of iterations that meets confidence level")
-	flag.Float64Var(&p.confidence, "c", defaultConfidence,
+	flag.Float64Var(&p.confidence, "c",
+		getEnvOrDefaultFloat(envConfidence, defaultConfidence),
 		"short for -confidence")
 
 	flag.Parse()
@@ -94,6 +97,18 @@ func getEnvOrDefaultInt(key string, fallback int) int {
 	}
 	return i
 
+}
+
+func getEnvOrDefaultFloat(key string, fallback float64) float64 {
+	val, present := os.LookupEnv(key)
+	if !present {
+		return fallback
+	}
+	f, err := strconv.ParseFloat(val, 64)
+	if err != nil {
+		return fallback
+	}
+	return f
 }
 
 // scenario picks randomly from the historical data. How many picks are
