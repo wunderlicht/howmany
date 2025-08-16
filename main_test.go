@@ -22,6 +22,7 @@ func Test_scenario(t *testing.T) {
 		{"should be done in two iteration", args{[]int{2, 2, 2}, 4}, 2},
 		{"should be done in three iteration", args{[]int{4, 3, 3}, 9}, 3},
 		{"one element", args{[]int{3}, 12}, 4},
+		{"goal 0 should be done in one", args{[]int{2, 2, 2}, 0}, 1},
 		// Add more test cases.
 	}
 	for _, tt := range tests {

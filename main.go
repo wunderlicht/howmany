@@ -38,6 +38,9 @@ func main() {
 // possible picks: 4, 3, 2, 3	summed up: 12, needed iterations: 4
 // possible picks: 4, 3, 3		summed up: 10, needed iterations: 3
 func scenario(historicalData []int, goal int) (iterations int) {
+	if goal == 0 { //guard
+		return 1
+	}
 	sum := 0
 	for iterations = 0; sum < goal; iterations++ {
 		pick := rand.IntN(len(historicalData))
