@@ -85,6 +85,9 @@ same as
 When `-scenarios` is omitted a default of 100,000 is assumed.  
 When `-confidence` is omitted the respective marker is not printed.
 
+All the above but goal can be set as defaults in environment variables
+where the command line arguments take precedence. `HMFILE`, `HMSCENARIOS`,
+`HMCONFIDENCE`
 
 ## Limitations
 When you have historic data with a lot of zeros, a.k.a. nothing was delivered
