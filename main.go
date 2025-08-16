@@ -55,7 +55,7 @@ func populateParameter(p *parameter) {
 
 	flag.StringVar(&p.filename, "file",
 		getEnvOrDefaultString(envFile, ""),
-		"filename of CSV with historic data (mandatory)")
+		"filename of CSV with historic data (mandatory or env)")
 	flag.StringVar(&p.filename, "f",
 		getEnvOrDefaultString(envFile, ""),
 		"short for -file")
