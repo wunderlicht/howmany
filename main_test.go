@@ -304,19 +304,25 @@ func Test_getEnvOrDefaultInt(t *testing.T) {
 	tests := []struct {
 		name   string
 		setEnv bool
+		envVal string
 		args   args
 		want   int
 	}{
-		{"no env should return falback", false,
+		{"no env should return falback",
+			false, "",
 			args{"SOMEKEY", 42}, 42},
-		{"env set should return setEnvString", true,
+		{"env set should return setEnvInt",
+			true, setEnvStr,
 			args{"SOMEKEY", 42}, setEnvInt},
+		{"malformed env should return fallback",
+			true, "hello, not a number",
+			args{"SOMEKEY", 42}, 42},
 		// Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.setEnv {
-				_ = os.Setenv(tt.args.key, setEnvStr) //maybe I should hard fail?
+				_ = os.Setenv(tt.args.key, tt.envVal) //maybe I should hard fail?
 			}
 			if got := getEnvOrDefaultInt(tt.args.key, tt.args.fallback); got != tt.want {
 				t.Errorf("getEnvOrDefaultInt() = %v, want %v", got, tt.want)
