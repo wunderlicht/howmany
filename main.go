@@ -46,6 +46,12 @@ func main() {
 }
 
 func populateParameter(p *parameter) {
+	//goal can't be omitted or set by environment variable
+	flag.IntVar(&p.goal, "goal", 0,
+		"goal to meet for a scenario (mandatory)")
+	flag.IntVar(&p.goal, "g", 0,
+		"short for -goal")
+
 	flag.StringVar(&p.filename, "file",
 		getEnvOrDefaultString(envFile, ""),
 		"filename of CSV with historic data (mandatory)")
@@ -59,10 +65,7 @@ func populateParameter(p *parameter) {
 	flag.IntVar(&p.scenarios, "s",
 		getEnvOrDefaultInt(envScenarios, defaultScenarios),
 		"short for -scenarios")
-	flag.IntVar(&p.goal, "goal", 0,
-		"goal to meet for a scenario (mandatory)")
-	flag.IntVar(&p.goal, "g", 0,
-		"short for -goal")
+
 	flag.Float64Var(&p.confidence, "confidence", defaultConfidence,
 		"set marker to # of iterations that meets confidence level")
 	flag.Float64Var(&p.confidence, "c", defaultConfidence,
