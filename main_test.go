@@ -47,27 +47,34 @@ func Test_scenario_should_panic_on_empty_historicData(t *testing.T) {
 // strategy is to look if specific strings appear in the output
 // rather than matching the complete output
 func Test_formatHistogram(t *testing.T) {
+	type args struct {
+		counts     map[int]int
+		scenarios  int
+		confidence float64
+	}
 	tests := []struct {
-		name      string
-		counts    map[int]int
-		scenarios int
-		want      string
+		name string
+		args args
+		want string
 	}{
 		{"should contain a header",
-			map[int]int{1: 10, 2: 30}, 40,
+			args{map[int]int{1: 10, 2: 30}, 40, 85.0},
 			"#iterations occurrence probability cumulative\n"},
 		{"should contain one row",
-			map[int]int{1: 42}, 42,
+			args{map[int]int{1: 42}, 42, 85.0},
 			"          1         42   100.00     100.00"},
-		{"should contain confidence marker",
-			map[int]int{1: 42}, 42,
-			" <-- 85% confidence\n"},
+		{"should contain default confidence marker",
+			args{map[int]int{1: 42}, 42, defaultConfidence},
+			" <-- 85.0% confidence\n"},
+		{"should contain 99.9% confidence marker",
+			args{map[int]int{1: 42}, 42, 99.9},
+			" <-- 99.9% confidence\n"},
 		// Add more test cases.
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := formatHistogram(tt.counts, tt.scenarios)
+			got := formatHistogram(tt.args.counts, tt.args.scenarios, tt.args.confidence)
 			if !strings.Contains(got, tt.want) {
 				t.Errorf("formatHistogram() = %v, want %v", got, tt.want)
 			}
@@ -97,7 +104,7 @@ func Test_formatHistogram_should_have_marker(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := formatHistogram(tt.counts, tt.scenarios)
+			got := formatHistogram(tt.counts, tt.scenarios, 85.0)
 			if strings.Count(got, marker) != want {
 				t.Errorf("formatHistogram() = %v, has not exactly %d marker", got, want)
 			}

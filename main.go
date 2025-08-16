@@ -42,7 +42,7 @@ func main() {
 		log.Fatal(err)
 	}
 	occ := runSimulation(hd, param.goal, param.scenarios)
-	fmt.Print(formatHistogram(occ, param.scenarios))
+	fmt.Print(formatHistogram(occ, param.scenarios, param.confidence))
 	fmt.Print(formatPredictionOnAverage(hd, param.goal))
 }
 
@@ -169,11 +169,11 @@ func readHistoryCSV(r io.Reader) (history []int, err error) {
 }
 
 // formats the results for output. Changes to the appearance are made here.
-func formatHistogram(occurrences map[int]int, scenarios int) string {
+func formatHistogram(occurrences map[int]int, scenarios int, confidence float64) string {
 	const (
 		header = "#iterations occurrence probability cumulative\n"
 		row    = "%11d%11d%9.2f%11.2f" //row format
-		marker = " <-- 85% confidence"
+		marker = " <-- %.1f%% confidence"
 	)
 	var b strings.Builder
 	b.WriteString(header)
@@ -187,9 +187,9 @@ func formatHistogram(occurrences map[int]int, scenarios int) string {
 		cumulative += prob
 
 		b.WriteString(fmt.Sprintf(row, iter, occurrences[iter], prob, cumulative))
-		if cumulative >= 85.0 && belowThreshold {
+		if cumulative >= confidence && belowThreshold {
 			belowThreshold = false //we reached the threshold
-			b.WriteString(marker)
+			b.WriteString(fmt.Sprintf(marker, confidence))
 		}
 		b.WriteString("\n")
 	}
