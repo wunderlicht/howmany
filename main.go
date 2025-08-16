@@ -113,7 +113,7 @@ func formatHistogram(occurrences map[int]int, scenarios int) string {
 	return b.String()
 }
 
-// gives a hint on the
+// what would it be if we just took the average
 func formatPredictionOnAverage(history []int, goal int) string {
 	//guard
 	if goal == 0 || len(history) == 0 || history == nil {
