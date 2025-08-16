@@ -346,19 +346,28 @@ func Test_getEnvOrDefaultFloat(t *testing.T) {
 	tests := []struct {
 		name   string
 		setEnv bool
+		envVal string
 		args   args
 		want   float64
 	}{
-		{"no env should return falback", false,
+		{"no env should return fallback",
+			false, "",
 			args{"SOMEKEY", 42.0}, 42.0},
-		{"env set should return setEnvFloat", true,
+		{"env set should return setEnvFloat",
+			true, setEnvStr,
 			args{"SOMEKEY", 42.0}, setEnvFloat},
+		{"malformed env should return fallback",
+			true, "hello",
+			args{"SOMEKEY", 42.0}, 42.0},
+		{"empty env should return fallback",
+			true, "",
+			args{"SOMEKEY", 42.0}, 42.0},
 		//Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.setEnv {
-				_ = os.Setenv(tt.args.key, setEnvStr) //maybe I should hard fail?
+				_ = os.Setenv(tt.args.key, tt.envVal) //maybe I should hard fail?
 			}
 			if got := getEnvOrDefaultFloat(tt.args.key, tt.args.fallback); got != tt.want {
 				t.Errorf("getEnvOrDefaultFloat() = %v, want %v", got, tt.want)
