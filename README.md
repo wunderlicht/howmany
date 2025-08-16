@@ -89,6 +89,27 @@ All the above but goal can be set as defaults in environment variables
 where the command line arguments take precedence. `HMFILE`, `HMSCENARIOS`,
 `HMCONFIDENCE`
 
+```
+% ./howmany -h
+Usage of ./howmany:
+  -c float
+        short for -confidence (default 85)
+  -confidence float
+        set marker to # of iterations that meets confidence level (default 85)
+  -f string
+        short for -file
+  -file string
+        filename of CSV with historic data (mandatory or env)
+  -g int
+        short for -goal
+  -goal int
+        goal to meet for a scenario (mandatory)
+  -s int
+        short for -scenarios (default 100000)
+  -scenarios int
+        number of scenarios (default 100000)
+```
+
 ## Limitations
 When you have historic data with a lot of zeros, a.k.a. nothing was delivered
 during iterations, the single scenario might not terminate (the case is very
