@@ -77,6 +77,7 @@ func populateParameter(p *parameter) {
 	flag.Parse()
 }
 
+// returns env's value when set otherwise fallback.
 func getEnvOrDefaultString(key string, fallback string) string {
 	val, present := os.LookupEnv(key)
 	if present {
@@ -86,6 +87,7 @@ func getEnvOrDefaultString(key string, fallback string) string {
 	}
 }
 
+// returns env's value when set and well-formed otherwise fallback
 func getEnvOrDefaultInt(key string, fallback int) int {
 	val, present := os.LookupEnv(key)
 	if !present {
@@ -99,6 +101,7 @@ func getEnvOrDefaultInt(key string, fallback int) int {
 
 }
 
+// returns env's value when set and well-formed otherwise fallback
 func getEnvOrDefaultFloat(key string, fallback float64) float64 {
 	val, present := os.LookupEnv(key)
 	if !present {
