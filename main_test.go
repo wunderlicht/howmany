@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"io"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -255,6 +256,36 @@ func Test_formatAverage(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := formatPredictionOnAverage(tt.args.history, tt.args.goal); got != tt.want {
 				t.Errorf("formatPredictionOnAverage() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getEnvOrDefaultString(t *testing.T) {
+	const setEnvString = "Env String"
+	type args struct {
+		key      string
+		fallback string
+	}
+	tests := []struct {
+		name   string
+		setEnv bool
+		args   args
+		want   string
+	}{
+		{"no env should return falback", false,
+			args{"SOMEKEY", "fb"}, "fb"},
+		{"env set should return setEnvString", true,
+			args{"SOMEKEY", "fb"}, setEnvString},
+		// Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.setEnv {
+				_ = os.Setenv(tt.args.key, setEnvString) //maybe I should hard fail?
+			}
+			if got := getEnvOrDefaultString(tt.args.key, tt.args.fallback); got != tt.want {
+				t.Errorf("getEnvOrDefaultString() = %v, want %v", got, tt.want)
 			}
 		})
 	}

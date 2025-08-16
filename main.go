@@ -15,6 +15,7 @@ import (
 const (
 	defaultScenarios  = 100_000
 	defaultConfidence = 85.0
+	envFile           = "HMFILE"
 )
 
 type parameter struct {
@@ -44,9 +45,11 @@ func main() {
 }
 
 func populateParameter(p *parameter) {
-	flag.StringVar(&p.filename, "file", "",
+	flag.StringVar(&p.filename, "file",
+		getEnvOrDefaultString(envFile, ""),
 		"filename of CSV with historic data (mandatory)")
-	flag.StringVar(&p.filename, "f", "",
+	flag.StringVar(&p.filename, "f",
+		getEnvOrDefaultString(envFile, ""),
 		"short for -file")
 	flag.IntVar(&p.scenarios, "scenarios", defaultScenarios,
 		"number of scenarios")
@@ -62,6 +65,15 @@ func populateParameter(p *parameter) {
 		"short for -confidence")
 
 	flag.Parse()
+}
+
+func getEnvOrDefaultString(key string, fallback string) string {
+	val, present := os.LookupEnv(key)
+	if present {
+		return val
+	} else {
+		return fallback
+	}
 }
 
 // scenario picks randomly from the historical data. How many picks are
