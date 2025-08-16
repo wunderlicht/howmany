@@ -317,6 +317,9 @@ func Test_getEnvOrDefaultInt(t *testing.T) {
 		{"malformed env should return fallback",
 			true, "hello, not a number",
 			args{"SOMEKEY", 42}, 42},
+		{"set but empty env should return fallback",
+			true, "",
+			args{"SOMEKEY", 42}, 42},
 		// Add test cases.
 	}
 	for _, tt := range tests {
