@@ -53,36 +53,40 @@ func Test_formatHistogram(t *testing.T) {
 		confidence float64
 	}
 	tests := []struct {
-		name string
-		args args
-		want string
+		name     string
+		args     args
+		search   string
+		contains bool
 	}{
 		{"should contain a header",
 			args{map[int]int{1: 10, 2: 30}, 40, 85.0},
-			"#iterations occurrence probability cumulative\n"},
+			"#iterations occurrence probability cumulative\n", true},
 		{"should contain one row",
 			args{map[int]int{1: 42}, 42, 85.0},
-			"          1         42   100.00     100.00"},
+			"          1         42   100.00     100.00", true},
 		{"should contain default confidence marker",
-			args{map[int]int{1: 42}, 42, defaultConfidence},
-			" <-- 85.0% confidence\n"},
+			args{map[int]int{1: 42}, 42, 85.0},
+			" <-- 85.0% confidence\n", true},
 		{"should contain 99.9% confidence marker",
 			args{map[int]int{1: 42}, 42, 99.9},
-			" <-- 99.9% confidence\n"},
+			" <-- 99.9% confidence\n", true},
+		{"should contain no confidence marker",
+			args{map[int]int{1: 42}, 42, 0.0},
+			" <-- ", false},
 		// Add more test cases.
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := formatHistogram(tt.args.counts, tt.args.scenarios, tt.args.confidence)
-			if !strings.Contains(got, tt.want) {
-				t.Errorf("formatHistogram() = %v, want %v", got, tt.want)
+			if strings.Contains(got, tt.search) != tt.contains {
+				t.Errorf("formatHistogram() = %v, want %v", got, tt.search)
 			}
 		})
 	}
 }
 
-func Test_formatHistogram_should_have_marker(t *testing.T) {
+func Test_formatHistogram_should_have_one_marker(t *testing.T) {
 	const (
 		want   = 1 //there can only be one marker
 		marker = " <-- "

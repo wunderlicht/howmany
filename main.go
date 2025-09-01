@@ -13,11 +13,10 @@ import (
 )
 
 const (
-	defaultScenarios  = 100_000
-	defaultConfidence = 85.0
-	envFile           = "HMFILE"
-	envScenarios      = "HMSCENARIOS"
-	envConfidence     = "HMCONFIDENCE"
+	defaultScenarios = 100_000
+	envFile          = "HMFILE"
+	envScenarios     = "HMSCENARIOS"
+	envConfidence    = "HMCONFIDENCE"
 )
 
 type parameter struct {
@@ -68,10 +67,10 @@ func populateParameter(p *parameter) {
 		"short for -scenarios")
 
 	flag.Float64Var(&p.confidence, "confidence",
-		getEnvOrDefaultFloat(envConfidence, defaultConfidence),
+		getEnvOrDefaultFloat(envConfidence, 0.0),
 		"set marker to # of iterations that meets confidence level")
 	flag.Float64Var(&p.confidence, "c",
-		getEnvOrDefaultFloat(envConfidence, defaultConfidence),
+		getEnvOrDefaultFloat(envConfidence, 0.0),
 		"short for -confidence")
 
 	flag.Parse()
@@ -180,15 +179,18 @@ func formatHistogram(occurrences map[int]int, scenarios int, confidence float64)
 
 	scenarioCounted := 0
 	cumulative := 0.0
-	belowThreshold := true
+	markerStillToPrint := true
+	if confidence == 0.0 { //don't print the marker if confidence is 0.0
+		markerStillToPrint = false
+	}
 	for iter := 1; scenarioCounted < scenarios; iter++ {
 		scenarioCounted += occurrences[iter]
 		prob := percent(occurrences[iter], scenarios)
 		cumulative += prob
 
 		b.WriteString(fmt.Sprintf(row, iter, occurrences[iter], prob, cumulative))
-		if cumulative >= confidence && belowThreshold {
-			belowThreshold = false //we reached the threshold
+		if cumulative >= confidence && markerStillToPrint {
+			markerStillToPrint = false //we reached the threshold
 			b.WriteString(fmt.Sprintf(marker, confidence))
 		}
 		b.WriteString("\n")
