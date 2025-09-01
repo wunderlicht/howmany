@@ -76,9 +76,9 @@ results of the scenarios are counted. Probabilities and cumulated probabilities
 are calculated based on the resulting dataset of those simulations.
 
 ## Usage
-`howmany -goal 55 -file history.csv -scenarios 300000 -confidence 90`  
-same as  
-`howmany -g 55 -f history.csv -s 300000 -c 90`
+`howmany -goal 55 -file history.csv -scenarios 300000 -confidence 90 -average`  
+is the same as  
+`howmany -g 55 -f history.csv -s 300000 -c 90 -a`
 
 `-goal` and `-file` are mandatory parameters.
 
@@ -87,15 +87,18 @@ When `-confidence` is omitted the respective marker is not printed.
 
 All the above but goal can be set as defaults in environment variables
 where the command line arguments take precedence. `HMFILE`, `HMSCENARIOS`,
-`HMCONFIDENCE`
+`HMCONFIDENCE`, `HMAVERAGE`
 
 ```
 % ./howmany -h
 Usage of ./howmany:
+  -a    short for -average (default true)
+  -average
+        also print estimation based on average done (default true)
   -c float
-        short for -confidence (default 85)
+        short for -confidence
   -confidence float
-        set marker to # of iterations that meets confidence level (default 85)
+        set marker to # of iterations that meets confidence level
   -f string
         short for -file
   -file string
@@ -108,7 +111,7 @@ Usage of ./howmany:
         short for -scenarios (default 100000)
   -scenarios int
         number of scenarios (default 100000)
-```
+  ```
 
 ## Limitations
 When you have historic data with a lot of zeros, a.k.a. nothing was delivered

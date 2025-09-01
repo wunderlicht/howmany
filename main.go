@@ -17,6 +17,7 @@ const (
 	envFile          = "HMFILE"
 	envScenarios     = "HMSCENARIOS"
 	envConfidence    = "HMCONFIDENCE"
+	envAverage       = "HMAVERAGE"
 )
 
 type parameter struct {
@@ -24,6 +25,7 @@ type parameter struct {
 	scenarios  int
 	goal       int
 	confidence float64
+	average    bool
 }
 
 func main() {
@@ -42,7 +44,9 @@ func main() {
 	}
 	occ := runSimulation(hd, param.goal, param.scenarios)
 	fmt.Print(formatHistogram(occ, param.scenarios, param.confidence))
-	fmt.Print(formatPredictionOnAverage(hd, param.goal))
+	if param.average {
+		fmt.Print(formatPredictionOnAverage(hd, param.goal))
+	}
 }
 
 func populateParameter(p *parameter) {
@@ -73,17 +77,22 @@ func populateParameter(p *parameter) {
 		getEnvOrDefaultFloat(envConfidence, 0.0),
 		"short for -confidence")
 
+	flag.BoolVar(&p.average, "average",
+		getEnvOrDefaultBool(envAverage, false),
+		"also print estimation based on average done")
+	flag.BoolVar(&p.average, "a",
+		getEnvOrDefaultBool(envAverage, false),
+		"short for -average")
 	flag.Parse()
 }
 
 // returns env's value when set otherwise fallback.
 func getEnvOrDefaultString(key string, fallback string) string {
 	val, present := os.LookupEnv(key)
-	if present {
-		return val
-	} else {
+	if !present {
 		return fallback
 	}
+	return val
 }
 
 // returns env's value when set and well-formed otherwise fallback
@@ -97,7 +106,6 @@ func getEnvOrDefaultInt(key string, fallback int) int {
 		return fallback
 	}
 	return i
-
 }
 
 // returns env's value when set and well-formed otherwise fallback
@@ -111,6 +119,19 @@ func getEnvOrDefaultFloat(key string, fallback float64) float64 {
 		return fallback
 	}
 	return f
+}
+
+// returns env's value when set and well-formed otherwise fallback
+func getEnvOrDefaultBool(key string, fallback bool) bool {
+	val, present := os.LookupEnv(key)
+	if !present {
+		return fallback
+	}
+	b, err := strconv.ParseBool(val)
+	if err != nil {
+		return fallback
+	}
+	return b
 }
 
 // scenario picks randomly from the historical data. How many picks are

@@ -386,3 +386,41 @@ func Test_getEnvOrDefaultFloat(t *testing.T) {
 		})
 	}
 }
+
+func Test_getEnvOrDefaultBool(t *testing.T) {
+	type args struct {
+		key      string
+		fallback bool
+	}
+	tests := []struct {
+		name   string
+		setEnv bool
+		envVal string
+		args   args
+		want   bool
+	}{
+		{"no env should return fallback",
+			false, "",
+			args{"SOMEKEY", false}, false},
+		{"env set should return parsed env",
+			true, "true",
+			args{"SOMEKEY", false}, true},
+		{"malformed env should return fallback",
+			true, "hello",
+			args{"SOMEKEY", true}, true},
+		{"empty env should return fallback",
+			true, "",
+			args{"SOMEKEY", true}, true},
+		// Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.setEnv {
+				_ = os.Setenv(tt.args.key, tt.envVal) //maybe I should hard fail?
+			}
+			if got := getEnvOrDefaultBool(tt.args.key, tt.args.fallback); got != tt.want {
+				t.Errorf("getEnvOrDefaultBool() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
