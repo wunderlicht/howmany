@@ -118,3 +118,10 @@ When you have historic data with a lot of zeros, a.k.a. nothing was delivered
 during iterations, the single scenario might not terminate (the case is very
 unlikely, still not impossible, so be aware). No measures were taken to catch
 this highly unlikely case.
+
+## Future Improvements
+Add a nice goper to this document (until there is no gopher this will not
+become v1.0.0).
+
+Restructure the code, maybe split it up in different files. Making different
+packages feels a little overkill right now.
