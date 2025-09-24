@@ -37,7 +37,7 @@ func Test_scenario_should_panic_on_empty_historicData(t *testing.T) {
 	}()
 	_ = scenario([]int{}, 4) //this should panic
 	// If there was no panic the test will fail
-	t.Errorf("scenario() with empty historic data should have paniced but didn't")
+	t.Errorf("scenario() with empty historic data should have panicked but didn't")
 }
 
 func Test_runSimulation(t *testing.T) {

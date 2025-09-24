@@ -219,10 +219,10 @@ func Test_getEnvOrDefaultString(t *testing.T) {
 		args   args
 		want   string
 	}{
-		{"no env should return falback", false,
-			args{"SOMEKEY", "fb"}, "fb"},
+		{"no env should return fallback", false,
+			args{"SOME_KEY", "fb"}, "fb"},
 		{"env set should return setEnvString", true,
-			args{"SOMEKEY", "fb"}, setEnvString},
+			args{"SOME_KEY", "fb"}, setEnvString},
 		// Add test cases.
 	}
 	for _, tt := range tests {
@@ -254,18 +254,18 @@ func Test_getEnvOrDefaultInt(t *testing.T) {
 		args   args
 		want   int
 	}{
-		{"no env should return falback",
+		{"no env should return fallback",
 			false, "",
-			args{"SOMEKEY", 42}, 42},
+			args{"SOME_KEY", 42}, 42},
 		{"env set should return setEnvInt",
 			true, setEnvStr,
-			args{"SOMEKEY", 42}, setEnvInt},
+			args{"SOME_KEY", 42}, setEnvInt},
 		{"malformed env should return fallback",
 			true, "hello, not a number",
-			args{"SOMEKEY", 42}, 42},
+			args{"SOME_KEY", 42}, 42},
 		{"set but empty env should return fallback",
 			true, "",
-			args{"SOMEKEY", 42}, 42},
+			args{"SOME_KEY", 42}, 42},
 		// Add test cases.
 	}
 	for _, tt := range tests {
@@ -298,16 +298,16 @@ func Test_getEnvOrDefaultFloat(t *testing.T) {
 	}{
 		{"no env should return fallback",
 			false, "",
-			args{"SOMEKEY", 42.0}, 42.0},
+			args{"SOME_KEY", 42.0}, 42.0},
 		{"env set should return setEnvFloat",
 			true, setEnvStr,
-			args{"SOMEKEY", 42.0}, setEnvFloat},
+			args{"SOME_KEY", 42.0}, setEnvFloat},
 		{"malformed env should return fallback",
 			true, "hello",
-			args{"SOMEKEY", 42.0}, 42.0},
+			args{"SOME_KEY", 42.0}, 42.0},
 		{"empty env should return fallback",
 			true, "",
-			args{"SOMEKEY", 42.0}, 42.0},
+			args{"SOME_KEY", 42.0}, 42.0},
 		//Add test cases.
 	}
 	for _, tt := range tests {
@@ -336,16 +336,16 @@ func Test_getEnvOrDefaultBool(t *testing.T) {
 	}{
 		{"no env should return fallback",
 			false, "",
-			args{"SOMEKEY", false}, false},
+			args{"SOME_KEY", false}, false},
 		{"env set should return parsed env",
 			true, "true",
-			args{"SOMEKEY", false}, true},
+			args{"SOME_KEY", false}, true},
 		{"malformed env should return fallback",
 			true, "hello",
-			args{"SOMEKEY", true}, true},
+			args{"SOME_KEY", true}, true},
 		{"empty env should return fallback",
 			true, "",
-			args{"SOMEKEY", true}, true},
+			args{"SOME_KEY", true}, true},
 		// Add test cases.
 	}
 	for _, tt := range tests {
