@@ -13,9 +13,9 @@ Gut feeling of one week became 6 days * 2, 12 days, so 2 working weeks and
 2 days. Of course this was far from the truth and the wisdom in the formula
 is questionable.
 
-Then the agile guys came up with time boxes (best ever), story point
+Then the agile guys came up with time boxes (the best thing ever), story point
 estimations, and the velocity of a team. (definition of velocity: rolling
-average of the last 8 sprints). This is slightly better, still misleading.
+average over the last 8 sprints). This is slightly better, still misleading.
 
 Here is a little experiment. Let's assume we have a (preliminary) velocity of
 3.5. Conveniently the historic data was 1, 2, 3, 4, 5, 6 points per iteration
