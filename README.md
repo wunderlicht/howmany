@@ -120,8 +120,7 @@ unlikely, still not impossible, so be aware). No measures were taken to catch
 this highly unlikely case.
 
 ## Future Improvements
-Add a nice goper to this document (until there is no gopher this will not
+- [ ] Add a nice goper to this document (until there is no gopher this will not
 become v1.0.0).
-
-Restructure the code, maybe split it up in different files. Making different
+- [ ] Restructure the code, maybe split it up in different files. Making different
 packages feels a little overkill right now.
