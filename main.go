@@ -29,13 +29,13 @@ func main() {
 
 	f, err := os.Open(param.filename)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	defer closeIgnoreError(f)
 
 	hd, err := readHistoryCSV(f)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	occ := runSimulation(hd, param.goal, param.scenarios)
 	fmt.Print(formatHistogram(occ, param.scenarios, param.confidence))
