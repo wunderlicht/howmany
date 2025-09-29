@@ -1,3 +1,5 @@
+[![Go test](https://github.com/wunderlicht/howmany/actions/workflows/gotest.yml/badge.svg)](https://github.com/wunderlicht/howmany/actions/workflows/gotest.yml)
+
 # howmany
 How many (iterations)? A.k.a. when is it done?
 
