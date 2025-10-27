@@ -117,7 +117,16 @@ Usage of ./howmany:
   -scenarios int
         number of scenarios (default 100000)
   ```
-
+## Historical data file Format
+The historical data needs to be provided in CSV. One row per iteration, things
+done in the 2nd column. All but the second column is ignored.
+```
+iteration, done, comment
+1, 15, first iteration
+2, 8, none
+3, 12, new laptops
+...
+```
 ## Limitations
 When you have historic data with a lot of zeros, a.k.a. nothing was delivered
 during iterations, the single scenario might not terminate (the case is very
@@ -129,3 +138,5 @@ this highly unlikely case.
 become v1.0.0).
 - [x] Restructure the code, maybe split it up in different files. Making different
 packages feels a little overkill right now.
+- [ ] Make the CSV import more intelligent and pick the 'done' column
+automatically
