@@ -19,7 +19,8 @@ is questionable.
 
 Then the agile guys came up with time boxes (the best thing ever), story point
 estimations, and the velocity of a team. (definition of velocity: rolling
-average over the last 8 sprints). This is slightly better, still misleading.
+average over the last 8 sprints of story points delivered). This is slightly
+better, still misleading.
 
 Here is a little experiment. Let's assume we have a (preliminary) velocity of
 3.5. Conveniently the historic data was 1, 2, 3, 4, 5, 6 points per iteration
@@ -54,13 +55,13 @@ table. 😉
 
 Of course `howmany` did the work for me.
 
-Before looking at the table
+Before this experiment and looking at the table
 * Were you aware that in no scenario it was possible to finish the job in 1
 iteration?
 * Did you see that commiting to do the job in 2 iterations is futile as
 it only has a less than 30% chance?
 * Did you see that committing to 3 iterations for the job is still likely to fail
-in 1 out of 4 cases?
+in 1 out of 4 attempts?
 
 All of a sudden we can argue with probabilities on how many iterations we
 should assume for a bunch of tasks at hand. We can adjust the planned iterations
