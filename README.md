@@ -97,9 +97,9 @@ where the command line arguments take precedence. `HMFILE`, `HMSCENARIOS`,
 ```
 % ./howmany -h
 Usage of ./howmany:
-  -a    short for -average (default true)
+  -a    short for -average
   -average
-        also print estimation based on average done (default true)
+        also print estimation based on average done
   -c float
         short for -confidence
   -confidence float
