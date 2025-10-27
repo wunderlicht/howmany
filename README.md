@@ -1,5 +1,7 @@
 [![Go test](https://github.com/wunderlicht/howmany/actions/workflows/gotest.yml/badge.svg)](https://github.com/wunderlicht/howmany/actions/workflows/gotest.yml)
 
+![Gopher with Dice](assets/gopherdice.webp)
+
 # howmany
 How many (iterations)? A.k.a. when is it done?
 
@@ -122,7 +124,7 @@ unlikely, still not impossible, so be aware). No measures were taken to catch
 this highly unlikely case.
 
 ## Future Improvements
-- [ ] Add a nice goper to this document (until there is no gopher this will not
+- [x] Add a nice goper to this document (until there is no gopher this will not
 become v1.0.0).
 - [x] Restructure the code, maybe split it up in different files. Making different
 packages feels a little overkill right now.
