@@ -90,6 +90,12 @@ that is a single piece of work.
 Do you had such things in the past? Well then it is obviously in your historic
 data. This is one of the sweet things of the simulation.
 
+### Will it be more accurate?
+Well, as we can't predict the future it is still just yesterday's weather. We
+know the past and try to extrapolate the near future. The only practical
+difference is that we can choose our level of confidence. Taking the velocity
+to do so is always a 50/50 chance.
+
 ## Usage
 `howmany -goal 55 -file history.csv -scenarios 300000 -confidence 90 -average`  
 is the same as  
