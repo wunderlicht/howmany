@@ -80,6 +80,16 @@ needed to hit (or overshoot) the given goal (9 in the above example). The
 results of the scenarios are counted. Probabilities and cumulated probabilities
 are calculated based on the resulting dataset of those simulations.
 
+## Yeah, but...
+### We don't use Story Points
+No problem, just count the work items done per iteration/sprint. Work items are
+stories, fixes, tickets, <insert your terminology here>, basically everything
+that is a single piece of work.
+
+### What about vacations, unplanned stuff, etc.?
+Do you had such things in the past? Well then it is obviously in your historic
+data. This is one of the sweet things of the simulation.
+
 ## Usage
 `howmany -goal 55 -file history.csv -scenarios 300000 -confidence 90 -average`  
 is the same as  
