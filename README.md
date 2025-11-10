@@ -83,7 +83,7 @@ are calculated based on the resulting dataset of those simulations.
 ## Yeah, but...
 ### We don't use Story Points
 No problem, just count the work items done per iteration/sprint. Work items are
-stories, fixes, tickets, <insert your terminology here>, basically everything
+stories, fixes, tickets, \<insert your terminology here\>, basically everything
 that is a single piece of work.
 
 ### What about vacations, unplanned stuff, etc.?
