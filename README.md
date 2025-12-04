@@ -154,5 +154,6 @@ this highly unlikely case.
 become v1.0.0).
 - [x] Restructure the code, maybe split it up in different files. Making different
 packages feels a little overkill right now.
-- [ ] Make the CSV import more intelligent and pick the 'done' column
+- [x] Make the CSV import more intelligent and pick the 'done' column
 automatically
+- [ ] Make the CSV import more resilient, i.e. detect double done columns

@@ -24,11 +24,11 @@ func Test_readHistoryCSV(t *testing.T) {
 		wantErr     bool
 	}{
 		{"header only should return empty array",
-			strings.NewReader("iteration, completed"),
+			strings.NewReader("iteration, done"),
 			[]int{},
 			false},
 		{"done value not an integer should throw an error",
-			strings.NewReader("a,b\n1,zwei"),
+			strings.NewReader("a,done\n1,zwei"),
 			nil,
 			true},
 		{"one data row should return one value",
@@ -53,6 +53,27 @@ func Test_readHistoryCSV(t *testing.T) {
 			}
 			if !reflect.DeepEqual(gotHistory, tt.wantHistory) {
 				t.Errorf("readHistoryCSV() gotHistory = %v, want %v", gotHistory, tt.wantHistory)
+			}
+		})
+	}
+}
+
+func Test_doneColumnPosition(t *testing.T) {
+	tests := []struct {
+		name    string
+		header  []string
+		wantPos int
+	}{
+		{`"done" on position 1`, []string{"a", "done"}, 1},
+		{`"done" on position 0`, []string{"done", "b"}, 0},
+		{`"DoNe" on position 0`, []string{"DoNe", "b"}, 0},
+		{`"  Done   " on position 0`, []string{"  Done   ", "b"}, 0},
+		// Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotPos := doneColumnPosition(tt.header); gotPos != tt.wantPos {
+				t.Errorf("doneColumnPosition() = %v, want %v", gotPos, tt.wantPos)
 			}
 		})
 	}
