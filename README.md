@@ -134,8 +134,10 @@ Usage of ./howmany:
         number of scenarios (default 100000)
   ```
 ## Historical data file Format
-The historical data needs to be provided in CSV. One row per iteration, things
-done in the 2nd column. All but the second column is ignored.
+The historical data needs to be provided in CSV. One row per
+iteration/sprint/time box. Things or story points
+done go in a column with the name "done". All but the "done" column is ignored.
+The position of the "done" column is your choice.
 ```
 iteration, done, comment
 1, 15, first iteration
