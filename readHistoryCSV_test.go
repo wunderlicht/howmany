@@ -48,7 +48,7 @@ func Test_readHistoryCSV(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotHistory, err := readHistoryCSV(tt.r)
-			if (err != nil) != tt.wantErr {
+			if (err != nil) != tt.wantErr { //if we got an error but did not want one something is off
 				t.Errorf("readHistoryCSV() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if !reflect.DeepEqual(gotHistory, tt.wantHistory) {
