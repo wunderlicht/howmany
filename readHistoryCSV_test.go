@@ -63,17 +63,24 @@ func Test_doneColumnPosition(t *testing.T) {
 		name    string
 		header  []string
 		wantPos int
+		wantErr error
 	}{
-		{`"done" on position 1`, []string{"a", "done"}, 1},
-		{`"done" on position 0`, []string{"done", "b"}, 0},
-		{`"DoNe" on position 0`, []string{"DoNe", "b"}, 0},
-		{`"  Done   " on position 0`, []string{"  Done   ", "b"}, 0},
+		{`"done" on position 1`, []string{"a", "done"}, 1, nil},
+		{`"done" on position 0`, []string{"done", "b"}, 0, nil},
+		{`"DoNe" on position 0`, []string{"DoNe", "b"}, 0, nil},
+		{`"  Done   " on position 0`, []string{"  Done   ", "b"}, 0, nil},
+		{`"no done in header should return pos=-1 and error`, []string{"a", "b"}, -1, noDone},
+		{`"done" on position 0 and 1`, []string{"done", "done"}, -1, multipleDone},
 		// Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotPos := doneColumnPosition(tt.header); gotPos != tt.wantPos {
+			gotPos, err := doneColumnPosition(tt.header)
+			if gotPos != tt.wantPos {
 				t.Errorf("doneColumnPosition() = %v, want %v", gotPos, tt.wantPos)
+			}
+			if !errors.Is(err, tt.wantErr) {
+				t.Errorf("doneColumnPosition() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
