@@ -158,4 +158,5 @@ become v1.0.0).
 packages feels a little overkill right now.
 - [x] Make the CSV import more intelligent and pick the 'done' column
 automatically
-- [ ] Make the CSV import more resilient, i.e. detect double done columns
+- [x] Make the CSV import more resilient, i.e. detect double done columns
+- [ ] consider to make a convenient cost calculation
