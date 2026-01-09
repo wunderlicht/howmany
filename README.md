@@ -87,7 +87,7 @@ stories, fixes, tickets, \<insert your terminology here\>, basically everything
 that is a single piece of work.
 
 ### What about vacations, unplanned stuff, etc.?
-Do you had such things in the past? Well then it is obviously in your historic
+Did you have such things in the past? Well then it is obviously in your historic
 data. This is one of the sweet things of the simulation.
 
 ### Will it be more accurate?
@@ -152,7 +152,7 @@ unlikely, still not impossible, so be aware). No measures were taken to catch
 this highly unlikely case.
 
 ## Future Improvements
-- [x] Add a nice goper to this document (until there is no gopher this will not
+- [x] Add a nice gopher to this document (until there is no gopher this will not
 become v1.0.0).
 - [x] Restructure the code, maybe split it up in different files. Making different
 packages feels a little overkill right now.
